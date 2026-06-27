@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+
+spec:
+  replicas: 1
+
+  selector:
+    matchLabels:
+      app: payment
+
+  template:
+    metadata:
+      labels:
+        app: payment
+
+    spec:
+      containers:
+      - name: payment
+
+        image: busybox
+
+        command:
+        - sh
+        - -c
+        - |
+          echo "panic:"
+          echo "dial tcp 10.20.0.15:5432: connection refused"
+          exit 1
